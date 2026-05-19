@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+groq
+supabase
+python-dotenv
+pydantic
+pywebpush
