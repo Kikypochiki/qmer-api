@@ -3,8 +3,16 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# Load environment variables. Prefer a project-root .env.local when available so
+# FastAPI (running from the fastapi/ folder) can access the same credentials
+# used by the Next.js app during local development.
+root_env = Path(__file__).resolve().parents[1] / '.env.local'
+if root_env.exists():
+    load_dotenv(root_env)
+else:
+    load_dotenv()
 
 from routes.predict import router as predict_router
 from routes.push import router as push_router
